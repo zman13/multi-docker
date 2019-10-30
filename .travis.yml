@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t zman13/react-test -f ./client/Dockerfile.dev
+  
+script:
+  - docker run -e CI=true zman13/react-test npm test
+
+after_install:
+  - docker build -t zman13/multi-client ./client
+  - docker build -t zman13/multi-nginx ./nginx
+  - docker build -t zman13/multi-server ./server
+  - docker build -t zman13/multi-worker ./worker
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  - docker push zman13/multi-client 
+  - docker push zman13/multi-nginx 
+  - docker push zman13/multi-server 
+  - docker push zman13/multi-worker 
