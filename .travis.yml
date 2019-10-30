@@ -13,9 +13,7 @@ after_install:
   - docker build -t marcziss1/multi-nginx ./nginx
   - docker build -t marcziss1/multi-server ./server
   - docker build -t marcziss1/multi-worker ./worker
-
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-
   - docker push marcziss1/multi-client 
   - docker push marcziss1/multi-nginx 
   - docker push marcziss1/multi-server 
