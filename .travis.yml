@@ -8,7 +8,7 @@ before_install:
 script:
   - docker run -e CI=true zman13/react-test npm test
 
-after_install:
+after_success:
   - docker build -t zman13/multi-client ./client
   - docker build -t zman13/multi-nginx ./nginx
   - docker build -t zman13/multi-server ./server
